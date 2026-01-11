@@ -132,8 +132,47 @@ footer {
     this.reset();
   });
 </script>
+<!-- Typing Animation -->
+<h2>I am <span id="typed-text"></span><span id="cursor">|</span></h2>
+
+<!-- Live Clock -->
+<p id="clock" style="font-weight:bold;"></p>
+
+<!-- Scripts -->
+<script>
+// Typing animation
+const words = ["Che Guevara", "a Tech Enthusiast", "an IT Student"];
+let i = 0, j = 0, currentWord = "", isDeleting = false;
+function type() {
+  if (i < words.length) {
+    if (!isDeleting && j <= words[i].length) {
+      currentWord = words[i].substring(0, j++);
+    } else if (isDeleting && j >= 0) {
+      currentWord = words[i].substring(0, j--);
+    }
+    document.getElementById("typed-text").textContent = currentWord;
+    if (j == words[i].length) isDeleting = true;
+    if (j == 0 && isDeleting) { isDeleting = false; i = (i + 1) % words.length; }
+    setTimeout(type, isDeleting ? 50 : 150);
+  }
+}
+type();
+</script>
+
+<script>
+// Live clock
+function updateClock() {
+  const now = new Date();
+  const time = now.toLocaleTimeString();
+  document.getElementById('clock').textContent = time;
+}
+setInterval(updateClock, 1000);
+updateClock();
+</script>
+```
 </body>
 </html>
+
 
 
 
